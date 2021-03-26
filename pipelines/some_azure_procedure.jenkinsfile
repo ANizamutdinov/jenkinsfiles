@@ -6,7 +6,7 @@ pipeline {
         stage ('init') {
             steps {
                 script {
-                    function = load "../functions/general_functions.groovy"
+                    function = load "functions/general_functions.groovy"
                 }
             }
         }
