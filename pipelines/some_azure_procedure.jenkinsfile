@@ -13,7 +13,7 @@ pipeline {
         stage ('Application build') {
             steps{
                 script{
-                    sv_build = function.get_svbuild_sas("account","blob")
+                    sv_build = function.get_sas("account","blob")
                 }
             }
         }
