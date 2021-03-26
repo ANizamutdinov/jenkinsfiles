@@ -1,4 +1,4 @@
-def function
+def functions
 
 pipeline {
     agent { node 'master' }
@@ -6,14 +6,14 @@ pipeline {
         stage ('init') {
             steps {
                 script {
-                    function = load "functions/general_functions.groovy"
+                    functions = load "functions/general_functions.groovy"
                 }
             }
         }
         stage ('Application build') {
             steps{
                 script{
-                    sv_build = function.get_sas("account","blob")
+                    sv_build = functions.getSas("account", "blob")
                 }
             }
         }
