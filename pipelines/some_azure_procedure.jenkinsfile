@@ -1,0 +1,26 @@
+def function
+
+pipeline {
+    agent { node 'master' }
+    stages {
+        stage ('init') {
+            steps {
+                script {
+                    function = load "functions/general_functions.groovy"
+                }
+            }
+        }
+        stage ('Application build') {
+            steps{
+                script{
+                    sv_build = function.get_svbuild_sas("account","blob")
+                }
+            }
+        }
+    }
+    post {
+        always {
+            cleanWs()
+        }
+    }
+}
