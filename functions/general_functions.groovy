@@ -1,8 +1,6 @@
 def getSas(def storage_account_name, def storage_container_name) {
     node ('master') {
-        answer = "Account:" + storage_account_name + "\nBLOB:" + storage_container_name
-        withCredentials([azureServicePrincipal(credentialsId: credential_id,)]) {
-            sh '''#!/bin/bash
+        sh '''#!/bin/bash
                 set -e
                 EXP=$(date -u -d "180 minutes" '+%Y-%m-%dT%H:%M:00Z')
                 NOW=$(date -u '+%Y-%m-%dT%H:%M:00Z')
@@ -13,8 +11,7 @@ def getSas(def storage_account_name, def storage_container_name) {
                 echo ${TOKEN} > ./sas
                 echo "Generated SAS token: ${TOKEN}"
                 az logout
-            '''
-        }
+                '''
         SAS = readFile("$env.WORKSPACE/sas").replace("\"", "")
         return SAS
     }

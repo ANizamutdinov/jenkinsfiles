@@ -14,9 +14,11 @@ pipeline {
         }
         stage ('Application build') {
             steps{
-                script{
-                    sv_build = functions.getSas("account", "blob")
-                    println(sv_build)
+                withCredentials([azureServicePrincipal(credentialsId: credential_id,)]) {
+                    script {
+                        sv_build = functions.getSas("account", "blob")
+                        println(sv_build)
+                    }
                 }
             }
         }
