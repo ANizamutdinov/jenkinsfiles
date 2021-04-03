@@ -1,7 +1,7 @@
 def getSas(def storage_account_name, def storage_container_name) {
     node ('master') {
         sh '''#!/bin/bash
-                set -e
+                set -x
                 EXP=$(date -u -d "180 minutes" '+%Y-%m-%dT%H:%M:00Z')
                 NOW=$(date -u '+%Y-%m-%dT%H:%M:00Z')
                 echo "Time now: $NOW \nExp time: $EXP"
