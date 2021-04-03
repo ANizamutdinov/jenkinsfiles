@@ -6,6 +6,7 @@ pipeline {
     agent { node 'master' }
     parameters {
         string name: 'account', defaultValue: 'account', description: '', trim: false
+        string name: 'container', defaultValue: 'container', description: '', trim: false
     }
     stages {
         stage ('init') {
@@ -19,7 +20,7 @@ pipeline {
             steps{
                 withCredentials([azureServicePrincipal(credentialsId: credential_id,)]) {
                     script {
-                        sv_build = functions.getSas(account, "lmdb")
+                        sv_build = functions.getSas(account, container)
                         println(sv_build)
                     }
                 }
