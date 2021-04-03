@@ -4,6 +4,9 @@ def credential_id = "8f7ff18d-de76-455f-83b1-f0dc87ec5e6e"
 
 pipeline {
     agent { node 'master' }
+    parameters {
+        string name: 'account', defaultValue: 'account', description: '', trim: false
+    }
     stages {
         stage ('init') {
             steps {
@@ -16,7 +19,7 @@ pipeline {
             steps{
                 withCredentials([azureServicePrincipal(credentialsId: credential_id,)]) {
                     script {
-                        sv_build = functions.getSas("account", "blob")
+                        sv_build = functions.getSas(account, "lmdb")
                         println(sv_build)
                     }
                 }
