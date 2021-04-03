@@ -1,5 +1,5 @@
 def getSas(def storage_account_name, def storage_container_name) {
-    node ('jenkins-slave-01') {
+    node ('master') {
         answer = "Account:" + storage_account_name + "\nBLOB:" + storage_container_name
         withCredentials([azureServicePrincipal(credentialsId: credential_id,)]) {
             sh '''#!/bin/bash
