@@ -1,4 +1,6 @@
 def functions
+def credential_id = "8f7ff18d-de76-455f-83b1-f0dc87ec5e6e"
+
 
 pipeline {
     agent { node 'master' }
