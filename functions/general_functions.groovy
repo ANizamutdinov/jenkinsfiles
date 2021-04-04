@@ -22,7 +22,7 @@ def getContainerSas(def storage_account_name, def storage_container_name) {
         }
     }
 }
-def getClassicContainerSas (def storage_account_name, def storage_container_name) {
+def getClassicContainerSas (def storage_container_name) {
     node ('master') {
         sh '''#!/bin/bash
                 set -x
