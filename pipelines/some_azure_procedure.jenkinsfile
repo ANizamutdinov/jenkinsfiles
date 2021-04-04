@@ -1,5 +1,6 @@
 def functions
 def credential_id = "8f7ff18d-de76-455f-83b1-f0dc87ec5e6e"
+def lightning_credential_id = "850e669e-1f0d-477b-928e-f8cfac233dd5"
 
 
 pipeline {
@@ -20,8 +21,18 @@ pipeline {
             steps{
                 withCredentials([azureServicePrincipal(credentialsId: credential_id,)]) {
                     script {
-                        sv_build = functions.getSas(account, container)
+                        sv_build = functions.getContainerSas(account, container)
                         println(sv_build)
+                    }
+                }
+            }
+        }
+        stage ('Lightning download') {
+            steps{
+                withCredentials([azureServicePrincipal(credentialsId: lightning_credential_id,)]) {
+                    script {
+                        sv_lightning = functions.getClassicContainerSas(container)
+                        println(sv_lightning)
                     }
                 }
             }
