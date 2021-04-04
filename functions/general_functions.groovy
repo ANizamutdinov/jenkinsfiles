@@ -1,8 +1,10 @@
+import java.time.Instant
+import java.time.Duration
+
 def getContainerSas(def storage_account_name, def storage_container_name) {
     node ('master') {
-        def now = new Date()
-        def sas_start = now.format('+%Y-%m-%dT%H:%M:00Z')
-        def sas_end = (now + 3.hours).format('+%Y-%m-%dT%H:%M:00Z')
+        def sas_start = Instant.now()
+        def sas_end = sas_start.plus(Duration.ofHours(3))
         println('Token would be valid from ' + sas_start + ' till '+ sas_end)
         sh '''#!/bin/bash
                 set -e
