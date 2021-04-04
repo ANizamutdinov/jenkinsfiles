@@ -9,7 +9,6 @@ def getContainerSas(def storage_account_name, def storage_container_name) {
                 az account set -s ''' + AZURE_SUBSCRIPTION_ID + ''' -o none
                 TOKEN=$(az storage container generate-sas --account-name ''' + storage_account_name + ''' --n ''' + storage_container_name + ''' --permissions lr --expiry $EXP --https-only)
                 echo ${TOKEN} > ./sas
-                echo "Generated SAS token: ${TOKEN}"
                 az logout
                 '''
         SAS = readFile("$env.WORKSPACE/sas").replace("\"", "")
@@ -31,8 +30,6 @@ def getClassicContainerSas (def storage_container_name) {
                 echo "Time now: $NOW \nExp time: $EXP"
                 TOKEN=$(az storage container generate-sas --account-name ''' + AZURE_STORAGE_ACCOUNT_NAME + ''' --account-key ''' + AZURE_STORAGE_ACCOUNT_KEY + ''' --n ''' + storage_container_name + ''' --permissions lr --expiry $EXP --https-only)
                 echo ${TOKEN} > ./sas
-                echo "Generated SAS token: ${TOKEN}"
-                az logout
                 '''
         SAS = readFile("$env.WORKSPACE/sas").replace("\"", "")
         if (SAS) {
