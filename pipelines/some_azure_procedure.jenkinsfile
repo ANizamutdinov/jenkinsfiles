@@ -40,6 +40,12 @@ pipeline {
                 }
             }
         }
+        stage ('Test future usage') {
+            when {environment name: 'storage_account_type', value: 'arm'}
+            steps {
+                println(sv_build)
+            }
+        }
     }
     post {
         always {
