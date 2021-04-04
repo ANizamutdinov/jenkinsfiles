@@ -1,11 +1,15 @@
 def getContainerSas(def storage_account_name, def storage_container_name) {
     node ('master') {
+        def now = new Date()
+        def sas_start = now.format('+%Y-%m-%dT%H:%M:00Z')
+        def sas_end = (now + 3.hours).format('+%Y-%m-%dT%H:%M:00Z')
+        println('Token would be valid from ' + sas_start + ' till '+ sas_end)
         sh '''#!/bin/bash
                 set -e
                 EXP=$(date -u -d "180 minutes" '+%Y-%m-%dT%H:%M:00Z')
                 NOW=$(date -u '+%Y-%m-%dT%H:%M:00Z')
                 echo "Time now: $NOW \nExp time: $EXP"
-                az login --service-principal -u ''' + AZURE_CLIENT_ID + ''' -p ''' + AZURE_CLIENT_SECRET + ''' -t ''' + AZURE_TENANT_ID + ''' -o table
+                az login --service-principal -u ''' + AZURE_CLIENT_ID + ''' -p ''' + AZURE_CLIENT_SECRET + ''' -t ''' + AZURE_TENANT_ID + ''' -o none --as-user --auth-mode login
                 az account set -s ''' + AZURE_SUBSCRIPTION_ID + ''' -o none
                 TOKEN=$(az storage container generate-sas --account-name ''' + storage_account_name + ''' --n ''' + storage_container_name + ''' --permissions lr --expiry $EXP --https-only)
                 echo ${TOKEN} > ./sas
