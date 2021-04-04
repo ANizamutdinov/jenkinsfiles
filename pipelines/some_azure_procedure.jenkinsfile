@@ -32,7 +32,7 @@ pipeline {
         stage ('Lightning download') {
             when {environment name: 'storage_account_type', value: 'classic'}
             steps{
-                withCredentials([azureServicePrincipal(credentialsId: lightning_credential_id,)]) {
+                withCredentials([azureStorage(credentialsId: lightning_credential_id,)]) {
                     script {
                         sv_lightning = functions.getClassicContainerSas(container)
                         println(sv_lightning)
