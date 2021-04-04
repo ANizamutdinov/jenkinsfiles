@@ -1,7 +1,7 @@
 def getContainerSas(def storage_account_name, def storage_container_name) {
     node ('master') {
         sh '''#!/bin/bash
-                set -x
+                set -e
                 EXP=$(date -u -d "180 minutes" '+%Y-%m-%dT%H:%M:00Z')
                 NOW=$(date -u '+%Y-%m-%dT%H:%M:00Z')
                 echo "Time now: $NOW \nExp time: $EXP"
@@ -24,7 +24,7 @@ def getContainerSas(def storage_account_name, def storage_container_name) {
 def getClassicContainerSas (def storage_container_name) {
     node ('master') {
         sh '''#!/bin/bash
-                set -x
+                set -e
                 EXP=$(date -u -d "180 minutes" '+%Y-%m-%dT%H:%M:00Z')
                 NOW=$(date -u '+%Y-%m-%dT%H:%M:00Z')
                 echo "Time now: $NOW \nExp time: $EXP"
