@@ -23,7 +23,7 @@ pipeline {
             steps{
                 withCredentials([azureServicePrincipal(credentialsId: credential_id,)]) {
                     script {
-                        sv_build = functions.getContainerSas(account, container)
+                        sv_build = functions.getContainerSasByLogin(account, container)
                         println(sv_build)
                     }
                 }
@@ -34,7 +34,7 @@ pipeline {
             steps{
                 withCredentials([azureStorage(credentialsId: lightning_credential_id,)]) {
                     script {
-                        sv_lightning = functions.getClassicContainerSas(container)
+                        sv_lightning = functions.getContainerSasByAccountKey(container)
                         println(sv_lightning)
                     }
                 }

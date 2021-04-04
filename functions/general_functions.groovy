@@ -1,4 +1,4 @@
-def getContainerSas(def storage_account_name, def storage_container_name) {
+def getContainerSasByLogin(def storage_account_name, def storage_container_name) {
     node ('master') {
         sh '''#!/bin/bash
                 set -e
@@ -21,7 +21,8 @@ def getContainerSas(def storage_account_name, def storage_container_name) {
         }
     }
 }
-def getClassicContainerSas (def storage_container_name) {
+
+def getContainerSasByAccountKey(def storage_container_name) {
     node ('master') {
         sh '''#!/bin/bash
                 set -e
