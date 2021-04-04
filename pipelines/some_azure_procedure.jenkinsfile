@@ -8,6 +8,7 @@ pipeline {
     parameters {
         string name: 'account', defaultValue: 'account', description: '', trim: false
         string name: 'container', defaultValue: 'container', description: '', trim: false
+        choice name: 'storage_account_type', choices: ['arm', 'classic'], description: ''
     }
     stages {
         stage ('init') {
@@ -18,6 +19,7 @@ pipeline {
             }
         }
         stage ('Application build') {
+            when {environment name: 'storage_account_type', value: 'arm'}
             steps{
                 withCredentials([azureServicePrincipal(credentialsId: credential_id,)]) {
                     script {
@@ -28,6 +30,7 @@ pipeline {
             }
         }
         stage ('Lightning download') {
+            when {environment name: 'storage_account_type', value: 'classic'}
             steps{
                 withCredentials([azureServicePrincipal(credentialsId: lightning_credential_id,)]) {
                     script {
