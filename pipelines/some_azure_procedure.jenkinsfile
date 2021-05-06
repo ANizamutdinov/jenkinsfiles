@@ -6,15 +6,17 @@ def lightning_credential_id = "850e669e-1f0d-477b-928e-f8cfac233dd5"
 pipeline {
     agent { node 'master' }
     parameters {
+        string name: 'url', defaultValue: 'https://ya.ru', description: '', trim: false
         string name: 'account', defaultValue: 'account', description: '', trim: false
         string name: 'container', defaultValue: 'container', description: '', trim: false
-        choice name: 'storage_account_type', choices: ['arm', 'classic'], description: ''
+        choice name: 'storage_account_type', choices: ['arm', 'classic'], defaultValue: '', description: ''
     }
     stages {
         stage ('init') {
             steps {
                 script {
                     functions = load "functions/general_functions.groovy"
+                    redirect_location = functions.getRedirectLocation(url)
                 }
             }
         }
@@ -40,10 +42,9 @@ pipeline {
                 }
             }
         }
-        stage ('Test future usage') {
-            when {environment name: 'storage_account_type', value: 'arm'}
+        stage ('Test output') {
             steps {
-                println(sv_build)
+                println(redirect_location)
             }
         }
     }
