@@ -44,7 +44,6 @@ def getContainerSasByAccountKey(def storage_container_name) {
 }
 
 def getRedirectLocation(def url) {
-    node ('master')
     def originalUrl = url.toURL()
     HttpURLConnection connection = originalUrl.openConnection()
     connection.followRedirects = false
@@ -52,7 +51,7 @@ def getRedirectLocation(def url) {
     connection.connect()
     if(connection.responseCode in [301,302,307,308]) {
         if (connection.headerFields.'Location') {
-            def redirectLocation = connection.headerFields.Location.first().toURL().toString()
+            redirectLocation = connection.headerFields.Location.first().toURL().toString()
             return redirectLocation
         } else {
             throw new RuntimeException('Failed to find redirected URL')
