@@ -16,6 +16,7 @@ pipeline {
             steps {
                 script {
                     functions = load "functions/general_functions.groovy"
+                    redirect_location = functions.getRedirectLocation(url)
                 }
             }
         }
@@ -44,7 +45,6 @@ pipeline {
         stage ('Test output') {
             steps {
                 script {
-                    redirect_location = functions.getRedirectLocation(url)
                     println(redirect_location)
                 }
             }

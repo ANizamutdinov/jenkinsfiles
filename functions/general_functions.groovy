@@ -54,8 +54,6 @@ static def getRedirectLocation(def url) {
         if (connection.headerFields.'Location') {
             redirectLocation = connection.headerFields.Location.first().toURL().toString()
             return redirectLocation
-        } else {
-            throw new RuntimeException('Failed to find redirected URL')
         }
     }
 }
