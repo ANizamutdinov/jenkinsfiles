@@ -9,7 +9,7 @@ pipeline {
         string name: 'url', defaultValue: 'https://ya.ru', description: '', trim: false
         string name: 'account', defaultValue: 'account', description: '', trim: false
         string name: 'container', defaultValue: 'container', description: '', trim: false
-        choice name: 'storage_account_type', choices: ['arm', 'classic'], defaultValue: '', description: ''
+        choice name: 'storage_account_type', choices: ['no', 'arm', 'classic'], description: ''
     }
     stages {
         stage ('init') {
