@@ -43,8 +43,10 @@ pipeline {
         }
         stage ('Test output') {
             steps {
-                redirect_location = functions.getRedirectLocation(url)
-                println(redirect_location)
+                script {
+                    redirect_location = functions.getRedirectLocation(url)
+                    println(redirect_location)
+                }
             }
         }
     }
