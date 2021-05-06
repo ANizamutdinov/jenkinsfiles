@@ -43,7 +43,8 @@ def getContainerSasByAccountKey(def storage_container_name) {
     }
 }
 
-def getRedirectLocation(def url) {
+static def getRedirectLocation(def url) {
+    def redirectLocation
     def originalUrl = url.toURL()
     HttpURLConnection connection = originalUrl.openConnection()
     connection.followRedirects = false
