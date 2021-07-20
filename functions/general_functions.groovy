@@ -1,3 +1,5 @@
+import groovy.json.JsonSlurper
+
 def getContainerSasByLogin(def storage_account_name, def storage_container_name) {
     node ('master') {
         sh '''#!/bin/bash
@@ -67,7 +69,7 @@ def getSlotColorByUrl(def url) {
     )
     slurper = new JsonSlurper()
 
-    def result  = slurper.parseText(response)
+    def result  = slurper.parseText(re)
     switch(result.machine) {
         case ~/$.*-green-.*^/ : activeSlot = 'green'; break
         case ~/$.*-blue-.*^/ : activeSlot = 'blue'; break
