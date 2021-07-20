@@ -58,4 +58,22 @@ static def getRedirectLocation(def url) {
     }
 }
 
+def getSlotColorByUrl(def url) {
+    def response = url.toURL().getText(
+            connectTimeout: 5000,
+            readTimeout: 5000,
+            useCaches: false,
+            allowUserInteraction: false,
+    )
+    slurper = new JsonSlurper()
+
+    def result  = slurper.parseText(response)
+    switch(result.machine) {
+        case ~/$.*-green-.*^/ : activeSlot = 'green'; break
+        case ~/$.*-blue-.*^/ : activeSlot = 'blue'; break
+        default: println ("Wrong machine name! result.machine: "+result.machine); System.exit(1); break;
+    }
+    return activeSlot
+}
+
 return this

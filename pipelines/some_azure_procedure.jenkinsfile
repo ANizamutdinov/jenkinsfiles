@@ -1,4 +1,3 @@
-def functions
 def credential_id = "8f7ff18d-de76-455f-83b1-f0dc87ec5e6e"
 def lightning_credential_id = "850e669e-1f0d-477b-928e-f8cfac233dd5"
 
@@ -17,6 +16,7 @@ pipeline {
                 script {
                     functions = load "functions/general_functions.groovy"
                     redirect_location = functions.getRedirectLocation(url)
+                    slot_color = functions.getSlotColorByUrl(url)
                 }
             }
         }
@@ -45,7 +45,7 @@ pipeline {
         stage ('Test output') {
             steps {
                 script {
-                    println(redirect_location)
+                    println(slot_color)
                 }
             }
         }
