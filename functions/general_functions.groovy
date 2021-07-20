@@ -73,7 +73,7 @@ def getSlotColorByUrl(def url) {
     switch(result.machine) {
         case ~/$.*-green-.*^/ : activeSlot = 'green'; break
         case ~/$.*-blue-.*^/ : activeSlot = 'blue'; break
-        default: println ("Wrong machine name! result.machine: "+result.machine); System.exit(1); break;
+        default: println ("Wrong machine name! result.machine: "+result.machine); break
     }
     return activeSlot
 }
