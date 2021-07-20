@@ -61,19 +61,21 @@ static def getRedirectLocation(def url) {
 }
 
 def getSlotColorByUrl(def url) {
-    sh '''#!/bin/bash
+    node('master') {
+        sh '''#!/bin/bash
                 set -e
                 COLOR=$(curl -s ''' + url.toString() + ''' | jq -r .machine | grep -oE \'(green|blue)\')
                 echo ${COLOR} > ./slot_color'''
-    slotColor = readFile("$env.WORKSPACE/slot_color")
-    if (slotColor) {
-        println 'Slot color gathered successfully'
-        return slotColor
-    } else {
-        println 'Something goes wrong! Exiting ...'
-        System.exit(1)
+        slotColor = readFile("$env.WORKSPACE/slot_color")
+        if (slotColor) {
+            println 'Slot color gathered successfully'
+            return slotColor
+        } else {
+            println 'Something goes wrong! Exiting ...'
+            System.exit(1)
+        }
+        cleanWs()
     }
-    cleanWs()
 }
 
 return this
